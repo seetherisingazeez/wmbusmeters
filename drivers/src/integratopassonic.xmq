@@ -1,0 +1,173 @@
+/*
+ Copyright (C) 2026
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+*/
+
+driver {
+    name           = integratopassonic
+    aliases        = topassonic
+    default_fields = name,id,total_volume_m3,status,timestamp
+    meter_type     = WaterMeter
+    detect {
+        mvt = IMT,10,07
+    }
+    library {
+        use = fabrication_no
+        use = 'meter_datetime|(04/109/Date and time)'
+    }
+    fields {
+        field {
+            name     = status
+            quantity = Text
+            info     = 'Status and error flags reported by the meter.'
+            attributes = STATUS,INCLUDE_TPL_STATUS
+            match {
+                difvifkey = 02FD17
+            }
+            lookup {
+                name            = INTEGRA_ERROR_FLAGS
+                map_type        = BitToString
+                mask_bits       = 0xffff
+                default_message = OK
+                map {
+                    name  = RESERVED
+                    value = 0x0001
+                    test  = Set
+                }
+                map {
+                    name  = AIR_BUBBLES
+                    value = 0x0002
+                    test  = Set
+                }
+                map {
+                    name  = BURST
+                    value = 0x0004
+                    test  = Set
+                }
+                map {
+                    name  = LEAK
+                    value = 0x0008
+                    test  = Set
+                }
+                map {
+                    name  = FROST
+                    value = 0x0010
+                    test  = Set
+                }
+                map {
+                    name  = HEAT
+                    value = 0x0020
+                    test  = Set
+                }
+                map {
+                    name  = OVER_TEMPERATURE
+                    value = 0x0040
+                    test  = Set
+                }
+                map {
+                    name  = NO_CONSUMPTION
+                    value = 0x0080
+                    test  = Set
+                }
+                map {
+                    name  = LOW_BATTERY
+                    value = 0x0100
+                    test  = Set
+                }
+                map {
+                    name  = REVERSE_FLOW
+                    value = 0x0200
+                    test  = Set
+                }
+                map {
+                    name  = OVERFLOW
+                    value = 0x0400
+                    test  = Set
+                }
+                map {
+                    name  = DRY
+                    value = 0x0800
+                    test  = Set
+                }
+                map {
+                    name  = LIMIT_MIN_WATER_TEMP
+                    value = 0x1000
+                    test  = Set
+                }
+                map {
+                    name  = LIMIT_MAX_WATER_TEMP
+                    value = 0x2000
+                    test  = Set
+                }
+                map {
+                    name  = METROLOGY_CHECK
+                    value = 0x8000
+                    test  = Set
+                }
+            }
+        }
+        field {
+            name     = total_volume
+            quantity = Volume
+            info     = 'The forward total volume recorded by this meter.'
+            match {
+                measurement_type = Instantaneous
+                vif_range        = Volume
+                tariff_nr        = 0
+            }
+        }
+        field {
+            name     = reverse_volume
+            quantity = Volume
+            info     = 'The reverse volume recorded by this meter (Record 2, Tariff 1).'
+            match {
+                measurement_type = Instantaneous
+                vif_range        = Volume
+                tariff_nr        = 1
+            }
+        }
+        field {
+            name     = module_temperature
+            quantity = Temperature
+            info     = 'The module temperature (water in pipe).'
+            match {
+                measurement_type = Instantaneous
+                vif_range        = FlowTemperature
+            }
+        }
+        field {
+            name     = target_volume
+            quantity = Volume
+            info     = 'The target monthly volume value (Storage 1).'
+            match {
+                measurement_type = Instantaneous
+                vif_range  = Volume
+                storage_nr = 1
+            }
+        }
+        field {
+            name         = target_date
+            quantity     = PointInTime
+            info         = 'The target date for the monthly value.'
+            display_unit = date
+            match {
+                measurement_type = Instantaneous
+                vif_range  = Date
+                storage_nr = 1
+            }
+        }
+        field {
+            name         = remaining_battery_lifetime
+            quantity     = Time
+            info         = 'Remaining battery lifetime in days.'
+            display_unit = d
+            match {
+                difvifkey = 02FD74
+            }
+        }
+    }
+}
