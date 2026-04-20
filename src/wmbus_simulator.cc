@@ -203,8 +203,13 @@ if (payload.size() > 4 && payload[0] == 0x68 && payload[3] == 0x68)
     {
         if (payload[i] == 0x0d && payload[i+1] == 0xfd && payload[i+2] == 0x3b)
         {
-            wmbus_start = i + 4;
-            break;
+            // Edge case mitigation: ensure the container size structurally matches
+            // the expected WMBus Length byte (L), and boundary fits the frame.
+            if (payload[i+3] == payload[i+4] + 1 && i + 4 + payload[i+4] <= payload.size())
+            {
+                wmbus_start = i + 4;
+                break;
+            }
         }
     }
     
@@ -239,8 +244,13 @@ AboutTelegram about("", 0, LinkMode::UNKNOWN, FrameType::MBUS);
                 {
                     if (payload[i] == 0x0d && payload[i+1] == 0xfd && payload[i+2] == 0x3b)
                     {
-                        wmbus_start = i + 4;
-                        break;
+                        // Edge case mitigation: ensure the container size structurally matches
+                        // the expected WMBus Length byte (L), and boundary fits the frame.
+                        if (payload[i+3] == payload[i+4] + 1 && i + 4 + payload[i+4] <= payload.size())
+                        {
+                            wmbus_start = i + 4;
+                            break;
+                        }
                     }
                 }
 
