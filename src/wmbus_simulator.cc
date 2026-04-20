@@ -194,17 +194,16 @@ void WMBusSimulator::simulate()
         if (is_mbus)
         {
             debug("(simulator) is mbus telegram.\n");
-// Check if this is an MBus/WMBus hybrid frame (starts with 68 and contains 5e or 4e later)
+// Check if this is an MBus/WMBus hybrid frame (starts with 68 and contains a Data container for wMBus later)
 if (payload.size() > 4 && payload[0] == 0x68 && payload[3] == 0x68)
 {
-    // Look for the WMBus application layer data starting with 5e44 or 4e44
+    // Look for the Data container for wMBus (0x0D 0xFD 0x3B)
     size_t wmbus_start = 0;
-    for (size_t i = 4; i < payload.size() - 10; i++)
+    for (size_t i = 4; i < payload.size() - 4; i++)
     {
-        if ((payload[i] == 0x5e && payload[i+1] == 0x44) || 
-            (payload[i] == 0x4e && payload[i+1] == 0x44))
+        if (payload[i] == 0x0d && payload[i+1] == 0xfd && payload[i+2] == 0x3b)
         {
-            wmbus_start = i;
+            wmbus_start = i + 4;
             break;
         }
     }
@@ -231,17 +230,16 @@ AboutTelegram about("", 0, LinkMode::UNKNOWN, FrameType::MBUS);
             debug("(simulator) is wmbus telegram.\n");
             AboutTelegram about("", 0, LinkMode::UNKNOWN, FrameType::WMBUS);
 
-            // Check if this is an MBus/WMBus hybrid frame (starts with 68 and contains 5e or 4e later)
+            // Check if this is an MBus/WMBus hybrid frame (starts with 68 and contains a Data container for wMBus later)
             if (payload.size() > 4 && payload[0] == 0x68 && payload[3] == 0x68)
             {
-                // Look for the WMBus application layer data starting with 5e44 or 4e44
+                // Look for the Data container for wMBus (0x0D 0xFD 0x3B)
                 size_t wmbus_start = 0;
-                for (size_t i = 4; i < payload.size() - 10; i++)
+                for (size_t i = 4; i < payload.size() - 4; i++)
                 {
-                    if ((payload[i] == 0x5e && payload[i+1] == 0x44) || 
-                        (payload[i] == 0x4e && payload[i+1] == 0x44))
+                    if (payload[i] == 0x0d && payload[i+1] == 0xfd && payload[i+2] == 0x3b)
                     {
-                        wmbus_start = i;
+                        wmbus_start = i + 4;
                         break;
                     }
                 }
