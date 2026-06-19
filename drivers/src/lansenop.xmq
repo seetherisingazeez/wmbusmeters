@@ -1,4 +1,4 @@
-// Copyright (C) 2026 (gpl-3.0-or-later)
+// Copyright (C) 2026 Azeezulla Khan (gpl-3.0-or-later)
 // Driver for Lansen LAN-WMBUS-O-P Outdoor Pulse Counter
 driver {
     name           = lansenop
