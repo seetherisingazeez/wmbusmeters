@@ -16,6 +16,7 @@
 */
 
 #include"aescmac.h"
+#include"gateway_unwrap.h"
 #include"sha256.h"
 #include"timings.h"
 #include"wmbus.h"
@@ -4169,6 +4170,37 @@ bool BusDeviceCommonImplementation::handleTelegram(AboutTelegram &about, vector<
         }
         // Something else that we currently do not understand.
         return false;
+    }
+
+    // Gateway frame unwrapping: detect MBus frames containing embedded WMBus telegrams.
+    // This handles gateways like Lansen GW5 that wrap received WMBus telegrams in MBus long frames.
+    // The detection is content-based (no hardcoded DIF/VIF patterns): any variable-length data record
+    // whose content validates as a WMBus telegram is extracted. Other data records become gateway metadata.
+    // If no embedded WMBus is found, the frame falls through to normal MBus processing unchanged.
+    if (about.type == FrameType::MBUS && frame.size() > 9)
+    {
+        vector<vector<uchar>> wmbus_payloads;
+        GatewayInfo gw_info;
+        if (tryUnwrapGatewayFrame(frame, wmbus_payloads, gw_info))
+        {
+            bool any_handled = false;
+            for (auto &wmbus_payload : wmbus_payloads)
+            {
+                debug("(gateway) unwrapped embedded WMBus telegram (%zu bytes) from gateway %s (%s)\n",
+                      wmbus_payload.size(), gw_info.gateway_id.c_str(), gw_info.gateway_mfct.c_str());
+                AboutTelegram gw_about(about.device, about.rssi_dbm, about.link_mode, FrameType::WMBUS, about.timestamp);
+                gw_about.gateway_info = gw_info;
+                for (auto f : telegram_listeners_)
+                {
+                    if (f)
+                    {
+                        bool h = f(gw_about, wmbus_payload);
+                        if (h) any_handled = true;
+                    }
+                }
+            }
+            return any_handled;
+        }
     }
 
     if (ignore_duplicate_telegrams_ && about.type == FrameType::WMBUS && seen_this_telegram_before(frame))

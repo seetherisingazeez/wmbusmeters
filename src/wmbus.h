@@ -20,6 +20,7 @@
 
 #include"address.h"
 #include"dvparser.h"
+#include"gateway_info.h"
 #include"manufacturers.h"
 #include"serial.h"
 #include"translatebits.h"
@@ -374,6 +375,8 @@ struct AboutTelegram
     FrameType type {};
     // time the telegram was received
     time_t timestamp;
+    // Gateway metadata, populated when a WMBus telegram is extracted from a gateway MBus frame.
+    GatewayInfo gateway_info;
 
     AboutTelegram(string dv, int rs, LinkMode lm, FrameType t, time_t ts = 0) : device(dv), rssi_dbm(rs), link_mode(lm), type(t), timestamp(ts) {}
     AboutTelegram() {}

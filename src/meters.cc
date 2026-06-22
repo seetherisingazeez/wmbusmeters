@@ -2041,6 +2041,31 @@ void MeterCommonImplementation::printMeter(Telegram *t,
         s += indent+"\"device\":\""+t->about.device+"\","+newline;
         s += indent+"\"rssi_dbm\":"+to_string(t->about.rssi_dbm);
     }
+    if (t->about.gateway_info.present)
+    {
+        const GatewayInfo &gw = t->about.gateway_info;
+        if (!gw.gateway_id.empty()) {
+            s += ","+newline+indent+"\"gateway_id\":\""+gw.gateway_id+"\"";
+        }
+        if (!gw.gateway_mfct.empty()) {
+            s += ","+newline+indent+"\"gateway_mfct\":\""+gw.gateway_mfct+"\"";
+        }
+        if (!gw.datetime.empty()) {
+            s += ","+newline+indent+"\"gateway_datetime\":\""+gw.datetime+"\"";
+        }
+        if (gw.rssi >= 0) {
+            s += ","+newline+indent+"\"gateway_rssi\":"+to_string(gw.rssi);
+        }
+        if (!gw.repeater_id.empty()) {
+            s += ","+newline+indent+"\"gateway_repeater_id\":\""+gw.repeater_id+"\"";
+        }
+        if (gw.repeater_rssi >= 0) {
+            s += ","+newline+indent+"\"gateway_repeater_rssi\":"+to_string(gw.repeater_rssi);
+        }
+        for (auto &kv : gw.extra_fields) {
+            s += ","+newline+indent+"\"gateway_"+kv.first+"\":\""+kv.second+"\"";
+        }
+    }
     for (string extra_field : meterExtraConstantFields())
     {
         s += ","+newline;

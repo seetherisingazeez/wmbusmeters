@@ -194,38 +194,9 @@ void WMBusSimulator::simulate()
         if (is_mbus)
         {
             debug("(simulator) is mbus telegram.\n");
-// Check if this is an MBus/WMBus hybrid frame (starts with 68 and contains a Data container for wMBus later)
-if (payload.size() > 4 && payload[0] == 0x68 && payload[3] == 0x68)
-{
-    // Look for the Data container for wMBus (0x0D 0xFD 0x3B)
-    size_t wmbus_start = 0;
-    for (size_t i = 4; i < payload.size() - 4; i++)
-    {
-        if (payload[i] == 0x0d && payload[i+1] == 0xfd && payload[i+2] == 0x3b)
-        {
-            // Edge case mitigation: ensure the container size structurally matches
-            // the expected WMBus Length byte (L), and boundary fits the frame.
-            if (payload[i+3] == payload[i+4] + 1 && i + 4 + payload[i+4] <= payload.size())
-            {
-                wmbus_start = i + 4;
-                break;
-            }
-        }
-    }
-    
-    if (wmbus_start > 0)
-    {
-        debug("(simulator) detected MBus/WMBus hybrid frame, extracting WMBus data from offset %zu\n", wmbus_start);
-        // Extract only the WMBus application layer data and treat as WMBus
-        vector<uchar> wmbus_payload(payload.begin() + wmbus_start, payload.end());
-        AboutTelegram about("", 0, LinkMode::UNKNOWN, FrameType::WMBUS);
-        handleTelegram(about, wmbus_payload);
-        continue; // Skip the normal MBus processing
-    }
-}
 
-AboutTelegram about("", 0, LinkMode::UNKNOWN, FrameType::MBUS);
-            // Remove two bytes, which are the checksum and end of telegram marker (0x16).
+            AboutTelegram about("", 0, LinkMode::UNKNOWN, FrameType::MBUS);
+            // Remove trailing bytes beyond payload (checksum and end of telegram marker 0x16).
             while (((size_t)payload_len) < payload.size()) payload.pop_back();
             handleTelegram(about, payload);
         }
@@ -235,42 +206,12 @@ AboutTelegram about("", 0, LinkMode::UNKNOWN, FrameType::MBUS);
             debug("(simulator) is wmbus telegram.\n");
             AboutTelegram about("", 0, LinkMode::UNKNOWN, FrameType::WMBUS);
 
-            // Check if this is an MBus/WMBus hybrid frame (starts with 68 and contains a Data container for wMBus later)
-            if (payload.size() > 4 && payload[0] == 0x68 && payload[3] == 0x68)
-            {
-                // Look for the Data container for wMBus (0x0D 0xFD 0x3B)
-                size_t wmbus_start = 0;
-                for (size_t i = 4; i < payload.size() - 4; i++)
-                {
-                    if (payload[i] == 0x0d && payload[i+1] == 0xfd && payload[i+2] == 0x3b)
-                    {
-                        // Edge case mitigation: ensure the container size structurally matches
-                        // the expected WMBus Length byte (L), and boundary fits the frame.
-                        if (payload[i+3] == payload[i+4] + 1 && i + 4 + payload[i+4] <= payload.size())
-                        {
-                            wmbus_start = i + 4;
-                            break;
-                        }
-                    }
-                }
-
-                if (wmbus_start > 0)
-                {
-                    debug("(simulator) detected MBus/WMBus hybrid frame, extracting WMBus data from offset %zu\n", wmbus_start);
-                    // Extract only the WMBus application layer data
-                    vector<uchar> wmbus_payload(payload.begin() + wmbus_start, payload.end());
-                    payload = wmbus_payload;
-                }
-            } else {
-        // Since this is a simulation, try to remove any frame format A or B
+            // Since this is a simulation, try to remove any frame format A or B
             // data link layer crcs. These might remain if we have received the telegram
             // to be simulated, from a CUL device or some other devices that does not remove the crcs.
             // Normally the dongle (im871a/amb8465/rc1180/rtlwmbus/rtl443) removes the dll-crcs.
             // Removing dll-crcs are also done explicitly in the wmbus_cul.cc driver.
             removeAnyDLLCRCs(payload);
-            }
-
-    
 
             handleTelegram(about, payload);
         }
