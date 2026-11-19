@@ -175,7 +175,7 @@ namespace
 // Test: HydrusAES hydrus 64745666 NOKEY
 // Comment:
 // telegram=||6644242328001081640E7266567464A51170071F0050052C411A08674048DD6BA82A0DF79FFD401309179A893A1BE3CE8EDC50C2A45CD7AFEC3B4CE765820BE8056C124A17416C3722985FFFF7FCEB7094901AB3A16294B511B9A740C9F9911352B42A72FB3B0C|
-// {"_":"telegram","media":"water","meter":"hydrus","name":"HydrusAES","id":"64745666","total_m3":137.291,"total_tariff1_m3":0,"total_tariff2_m3":137.291,"flow_m3h":0,"flow_temperature_c":24.5,"external_temperature_c":23.9,"total_at_date_m3":128.638,"total_tariff1_at_date_m3":0,"total_tariff2_at_date_m3":128.638,"at_date":"2020-12-31","actuality_duration_s":6673,"operating_time_h":14678,"meter_datetime": "2021-01-23 08:27","status":"OK","timestamp":"1111-11-11T11:11:11Z"}
+// {"_":"telegram","media":"water","meter":"hydrus","name":"HydrusAES","id":"64745666","dll_id":"81100028","total_m3":137.291,"total_tariff1_m3":0,"total_tariff2_m3":137.291,"flow_m3h":0,"flow_temperature_c":24.5,"external_temperature_c":23.9,"total_at_date_m3":128.638,"total_tariff1_at_date_m3":0,"total_tariff2_at_date_m3":128.638,"at_date":"2020-12-31","actuality_duration_s":6673,"operating_time_h":14678,"meter_datetime": "2021-01-23 08:27","status":"OK","timestamp":"1111-11-11T11:11:11Z"}
 // |HydrusAES;64745666;137.291;128.638;OK;1111-11-11 11:11.11
 
 // Test: HydrusIzarRS hydrus 60897379 NOKEY

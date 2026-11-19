@@ -208,7 +208,7 @@ namespace
 
 // Test: QHeato qheat 67228058 NOKEY
 // telegram=|3C449344957002372337725880226793442304DC0000200C05043900004C0500000000426C9F2CCC080551070000C2086CBE29326CFFFF046D280DB62A|
-// {"_":"telegram","media":"heat","meter":"qheat","name":"QHeato","id":"67228058","status":"OK","total_energy_consumption_kwh":390.4,"last_month_date":"2021-09-30","last_month_energy_consumption_kwh":75.1,"last_year_date":"2020-12-31","last_year_energy_consumption_kwh":0,"device_date_time":"2021-10-22 13:40","device_error_date":"2127-15-31","timestamp":"1111-11-11T11:11:11Z"}
+// {"_":"telegram","media":"heat","meter":"qheat","name":"QHeato","id":"67228058","dll_id":"37027095","status":"OK","total_energy_consumption_kwh":390.4,"last_month_date":"2021-09-30","last_month_energy_consumption_kwh":75.1,"last_year_date":"2020-12-31","last_year_energy_consumption_kwh":0,"device_date_time":"2021-10-22 13:40","device_error_date":"2127-15-31","timestamp":"1111-11-11T11:11:11Z"}
 // |QHeato;67228058;390.4;2021-09-30;75.1;1111-11-11 11:11.11
 
 
@@ -219,13 +219,13 @@ namespace
 
 // Test: Qheatoo qheat 78563412 NOKEY
 // telegram=|3C449344123456782337729876543293442304FE0000200C05682235004C0580253200426CDF2CCC080525153500C2086CFE24326CFFFF046D1811F225|
-// {"_":"telegram","media":"heat","meter":"qheat","name":"Qheatoo","id":"32547698","status":"OK","total_energy_consumption_kwh":35226.8,"last_month_date":"2023-04-30","last_month_energy_consumption_kwh":35152.5,"last_year_date":"2022-12-31","last_year_energy_consumption_kwh":32258,"device_date_time":"2023-05-18 17:24","device_error_date":"2127-15-31","timestamp":"1111-11-11T11:11:11Z"}
+// {"_":"telegram","media":"heat","meter":"qheat","name":"Qheatoo","id":"32547698","dll_id":"78563412","status":"OK","total_energy_consumption_kwh":35226.8,"last_month_date":"2023-04-30","last_month_energy_consumption_kwh":35152.5,"last_year_date":"2022-12-31","last_year_energy_consumption_kwh":32258,"device_date_time":"2023-05-18 17:24","device_error_date":"2127-15-31","timestamp":"1111-11-11T11:11:11Z"}
 // |Qheatoo;32547698;35226.8;2023-04-30;35152.5;1111-11-11 11:11.11
 
 // Test: Qheatoo qheat 78563411 NOKEY
 // Comment: Proprietary Q walk-by message, these telegrams currently can be matched only by the first id
 // telegram=|5344934411345678233778077998765431934423040dff5f350082fe00005f0107c005ffff68223500df2c80253200fe24251535005c03030000000000af03f508e91e1d2efc236e1fa218fe142f046d1911f225|
-// {"_":"telegram","media":"heat","meter":"qheat","name":"Qheatoo","id":"31547698","status":"OK","total_energy_consumption_kwh":35226.8,"last_month_date":"2023-04-30","last_month_energy_consumption_kwh":35152.5,"last_year_date":"2022-12-31","last_year_energy_consumption_kwh":32258,"device_date_time":"2023-05-18 17:25","timestamp":"1111-11-11T11:11:11Z"}
+// {"_":"telegram","media":"heat","meter":"qheat","name":"Qheatoo","id":"31547698","dll_id":"78563411","status":"OK","total_energy_consumption_kwh":35226.8,"last_month_date":"2023-04-30","last_month_energy_consumption_kwh":35152.5,"last_year_date":"2022-12-31","last_year_energy_consumption_kwh":32258,"device_date_time":"2023-05-18 17:25","timestamp":"1111-11-11T11:11:11Z"}
 // |Qheatoo;31547698;35226.8;2023-04-30;35152.5;1111-11-11 11:11.11
 
 // Test: QQ1 qheat 68204641 NOKEY

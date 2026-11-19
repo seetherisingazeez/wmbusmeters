@@ -132,7 +132,7 @@ telegram=|3E44A5116565656570067AFB0030052F2F_0C13503400000DFD110A383731303134423
 
 # Test Hydrus with default AES encryption
 telegram=||6644242328001081640E7266567464A51170071F0050052C411A08674048DD6BA82A0DF79FFD401309179A893A1BE3CE8EDC50C2A45CD7AFEC3B4CE765820BE8056C124A17416C3722985FFFF7FCEB7094901AB3A16294B511B9A740C9F9911352B42A72FB3B0C|
-{"_":"telegram","actuality_duration_s": 6673,"at_date": "2020-12-31","external_temperature_c": 23.9,"flow_m3h": 0,"flow_temperature_c": 24.5,"id": "64745666","media": "water","meter": "hydrus","meter_datetime": "2021-01-23 08:27","name": "HydrusAES","operating_time_h": 14678,"status": "OK","timestamp": "1111-11-11T11:11:11Z","total_at_date_m3": 128.638,"total_m3": 137.291,"total_tariff1_at_date_m3": 0,"total_tariff1_m3": 0,"total_tariff2_at_date_m3": 128.638,"total_tariff2_m3": 137.291}
+{"_":"telegram","actuality_duration_s": 6673,"at_date": "2020-12-31","external_temperature_c": 23.9,"flow_m3h": 0,"flow_temperature_c": 24.5,"id": "64745666","dll_id": "81100028","media": "water","meter": "hydrus","meter_datetime": "2021-01-23 08:27","name": "HydrusAES","operating_time_h": 14678,"status": "OK","timestamp": "1111-11-11T11:11:11Z","total_at_date_m3": 128.638,"total_m3": 137.291,"total_tariff1_at_date_m3": 0,"total_tariff1_m3": 0,"total_tariff2_at_date_m3": 128.638,"total_tariff2_m3": 137.291}
 |HydrusAES;64745666;137.291;128.638;OK;1111-11-11 11:11.11
 
 # Test BMeters HydroDigit water telegram
@@ -260,7 +260,7 @@ telegram=|534424232004256092687A370045752235854DEEEA5939FAD81C25FEEF5A23C38FB916
 
 # Test Apator Elf Heat meter
 telegram=|51440186010905001837721956880101064004DA000020026CA9220E017799241103000C13641320000A2D00000A5A90060A5E800544050E77000001FD0C010A6564370AFD4731030A274907047F00000002|
-{"_":"telegram","media":"heat","meter":"elf","name":"Hetta","id":"01885619","status":"ERROR_FLAGS_2000000","meter_date":"2021-02-09","total_energy_consumption_kwh":3112.49977,"current_power_consumption_kw":0,"total_volume_m3":201.364,"total_energy_consumption_at_date_kwh":3047.8,"flow_temperature_c":69,"return_temperature_c":58,"external_temperature_c":37.64,"operating_time_h":17976,"version":"01","battery_v":3.31,"timestamp":"1111-11-11T11:11:11Z"}
+{"_":"telegram","media":"heat","meter":"elf","name":"Hetta","id":"01885619","dll_id":"00050901","status":"ERROR_FLAGS_2000000","meter_date":"2021-02-09","total_energy_consumption_kwh":3112.49977,"current_power_consumption_kw":0,"total_volume_m3":201.364,"total_energy_consumption_at_date_kwh":3047.8,"flow_temperature_c":69,"return_temperature_c":58,"external_temperature_c":37.64,"operating_time_h":17976,"version":"01","battery_v":3.31,"timestamp":"1111-11-11T11:11:11Z"}
 |Hetta;01885619;3112.49977;0;201.364;69;58;37.64;ERROR_FLAGS_2000000;1111-11-11 11:11.11
 
 # Test Diehl IZAR RC I G4 water meter
@@ -305,7 +305,7 @@ telegram=|2E44B05C82340100021B7A460000002F2F0A6601020AFB1A570602FD971D00002F2F2F
 
 # Test QHeat heat meter
 telegram=|3C449344957002372337725880226793442304DC0000200C05043900004C0500000000426C9F2CCC080551070000C2086CBE29326CFFFF046D280DB62A|
-{"_":"telegram","media":"heat","meter":"qheat","name":"QHeato","id":"67228058","status":"OK","total_energy_consumption_kwh":390.4,"last_month_date":"2021-09-30","last_month_energy_consumption_kwh":75.1,"last_year_date":"2020-12-31","last_year_energy_consumption_kwh":0,"device_date_time":"2021-10-22 13:40","device_error_date":"2127-15-31","timestamp":"1111-11-11T11:11:11Z"}
+{"_":"telegram","media":"heat","meter":"qheat","name":"QHeato","id":"67228058","dll_id":"37027095","status":"OK","total_energy_consumption_kwh":390.4,"last_month_date":"2021-09-30","last_month_energy_consumption_kwh":75.1,"last_year_date":"2020-12-31","last_year_energy_consumption_kwh":0,"device_date_time":"2021-10-22 13:40","device_error_date":"2127-15-31","timestamp":"1111-11-11T11:11:11Z"}
 |QHeato;67228058;390.4;2021-09-30;75.1;1111-11-11 11:11.11
 
 # Test QSmoke smoke detector this one is not yet understood.

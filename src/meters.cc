@@ -1950,9 +1950,20 @@ void MeterCommonImplementation::printMeter(Telegram *t,
     }
 
     string id = "";
+    string dll_id = "";
     if (t->addresses.size() > 0)
     {
         id = build_id(t->addresses.back(), identityMode());
+        // When the outer (dll) address differs from the inner one, e.g. a pulse
+        // counter or radio converter reporting for a separately configured meter,
+        // also print the outer id so that it is not lost.
+        // Wired M-Bus primary addresses (p0..p250) are not dll ids, skip them.
+        if (t->addresses.size() > 1 &&
+            t->addresses.front().id != t->addresses.back().id &&
+            t->addresses.front().id.rfind("p", 0) != 0)
+        {
+            dll_id = build_id(t->addresses.front(), identityMode());
+        }
     }
 
     string indent = "";
@@ -1971,6 +1982,10 @@ void MeterCommonImplementation::printMeter(Telegram *t,
     s += indent+"\"meter\":\""+driverName().str()+"\","+newline;
     s += indent+"\"name\":\""+name()+"\","+newline;
     s += indent+"\"id\":\""+id+"\","+newline;
+    if (dll_id != "")
+    {
+        s += indent+"\"dll_id\":\""+dll_id+"\","+newline;
+    }
 
     // Iterate over the meter field infos...
     map<FieldInfo*,set<DVEntry*>> founds; // Multiple dventries can match to a single field info.

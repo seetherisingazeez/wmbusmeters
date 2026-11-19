@@ -106,5 +106,5 @@ namespace
 
 // Test: Watertwo gwfwater 19680750 NOKEY
 // telegram=|3944E61E46441510020E8C04427250076819E61E3C07B10020452F2F_03748B05000413DC690D004413A4630D00426C213C02FD74B5140F0100E3|
-// {"_": "telegram","actuality_duration_s": 1419,"battery_y": 14,"id": "19680750","media": "water","meter": "gwfwater","name": "Watertwo","power_mode": "SAVING","status": "OK","target_date": "2025-12-01","target_m3": 877.476,"timestamp": "1111-11-11T11:11:11Z","total_m3": 879.068}
+// {"_": "telegram","actuality_duration_s": 1419,"battery_y": 14,"id": "19680750","dll_id": "10154446","media": "water","meter": "gwfwater","name": "Watertwo","power_mode": "SAVING","status": "OK","target_date": "2025-12-01","target_m3": 877.476,"timestamp": "1111-11-11T11:11:11Z","total_m3": 879.068}
 // |Watertwo;19680750;879.068;1111-11-11 11:11.11

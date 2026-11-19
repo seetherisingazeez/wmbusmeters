@@ -79,7 +79,7 @@ namespace
 // Test: Vatten weh_07 86868686 NOKEY
 // Comment: Techem radio convert + Wehrle water meter combo.
 // telegram=|494468509494949495377286868686A85CFE07A90030052F2F_0413100000000F52FCF6A52A90A8D83CA8F7FEAE86990502323D0C70EFF49833C7C1696F75BCABC1E52E6305308D0F31FB|
-// {"_":"telegram","media":"water","meter":"weh_07","name":"Vatten","id":"86868686","total_m3":0.016,"timestamp":"1111-11-11T11:11:11Z"}
+// {"_":"telegram","media":"water","meter":"weh_07","name":"Vatten","id":"86868686","dll_id":"94949494","total_m3":0.016,"timestamp":"1111-11-11T11:11:11Z"}
 // |Vatten;86868686;0.016;1111-11-11 11:11.11
 
 // Test: Vattenn weh_07 27604781 NOKEY
